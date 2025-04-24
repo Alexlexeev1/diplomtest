@@ -1,12 +1,11 @@
 <?php
 set_time_limit(60);
 $__content_type__ = 'audio/wav';
-$__timeout__ = 20;
+$__timeout__ = 40;
 $__content__ = '';
 $__chunked__= 0;
 $__password__ = strrev(date("h"));
 $__trailer__= 0;
-
 function message_html($title, $banner, $detail) {
 $error = <<<MESSAGE_STRING
 <html><head>
@@ -120,9 +119,6 @@ break;
 case 'GET':
 break;
 case 'POST':
-$curl_opt[CURLOPT_POST] = true;
-$curl_opt[CURLOPT_POSTFIELDS] = $body;
-break;
 case 'PUT':
 case 'DELETE':
 case 'PATCH':
