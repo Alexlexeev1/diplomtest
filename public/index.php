@@ -126,7 +126,7 @@ $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
 break;
 case 'OPTIONS':
-// case 'TRACE':
+case 'TRACE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 break;
 default:
