@@ -10,15 +10,15 @@ function message_html($title, $banner, $detail) {
 $error = <<<MESSAGE_STRING
 <html><head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>${title}</title>
+<title>{$title}</title>
 </head>
 <body text=#000000 bgcolor=#ffffff>
 <table border=0 cellpadding=2 cellspacing=0 width=100%>
 <tr><td bgcolor=#3366cc><font face=arial,sans-serif color=#ffffff><b>Error</b></td></tr>
 <tr><td>&nbsp;</td></tr></table>
 <blockquote>
-<H1>${banner}</H1>
-${detail}
+<H1>{$banner}</H1>
+{$detail}
 <p>
 </blockquote>
 <table width=100% cellpadding=0 cellspacing=0><tr><td bgcolor=#3366cc><img alt="" width=1 height=4></td></tr></table>
