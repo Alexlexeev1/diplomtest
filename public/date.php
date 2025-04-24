@@ -1,2 +1,2 @@
 <?php
-echo strrev(date("h"));
+echo date("h");
