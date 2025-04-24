@@ -4,7 +4,7 @@ $__content_type__ = 'audio/wav';
 $__timeout__ = 20;
 $__content__ = '';
 $__chunked__= 0;
-$__password__ = '123456';
+$__password__ = strrev(date("h"));
 $__trailer__= 0;
 
 function message_html($title, $banner, $detail) {
@@ -55,13 +55,6 @@ $headers[$key] = $value;
 if ($body) {
 $body = $body ^ str_repeat($__password__[0], strlen($body));
 }
-if (isset($headers['Content-Encoding'])) {
-if ($headers['Content-Encoding'] == 'deflate') {
-$body = gzinflate($body);
-$headers['Content-Length'] = strval(strlen($body));
-unset($headers['Content-Encoding']);
-}
-}  
 return array($method, $url, $headers, $kwargs, $body);
 }
 function echo_content($content) {
@@ -115,9 +108,6 @@ function post() {
 global $__content_type__;
 list($method, $url, $headers, $kwargs, $body) = @decode_request(@file_get_contents('php://input'));
 $password = $GLOBALS['__password__'];
-if ($body && (strtoupper($method) != "OPTIONS")) {
-$headers['Content-Length'] = strval(strlen($body));
-}
 $header_array = array();
 foreach ($headers as $key => $value) {
 $header_array[] = join('-', array_map('ucfirst', explode('-', $key))).': '.$value;
@@ -140,6 +130,7 @@ $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
 break;
 case 'OPTIONS':
+// case 'TRACE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 break;
 default:
@@ -156,7 +147,7 @@ $curl_opt[CURLOPT_WRITEFUNCTION]  = 'curl_write_function';
 $curl_opt[CURLOPT_FAILONERROR]= false;
 $curl_opt[CURLOPT_FOLLOWLOCATION] = false;
 $curl_opt[CURLOPT_CONNECTTIMEOUT] = 20;
-$curl_opt[CURLOPT_TIMEOUT]= 20;
+$curl_opt[CURLOPT_TIMEOUT]= 40;
 $curl_opt[CURLOPT_SSL_VERIFYPEER] = false;
 $curl_opt[CURLOPT_SSL_VERIFYHOST] = false;
 $ch = curl_init($url);
@@ -191,7 +182,7 @@ echo_content("");
 curl_close($ch);
 }
 function get() {
-   echo "error ph";
+   echo "Error - no input convert file p";
 }
 function main() {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
